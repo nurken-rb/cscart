@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<addon scheme="3.0">
+    <id>product_price_history</id>
+    <version>1.0</version>
+    <priority>100</priority>
+    <position>0</position>
+    <auto_install>MULTIVENDOR,ULTIMATE</auto_install>
+    <default_language>en</default_language>
+    <queries>
+        <item>
+            CREATE TABLE IF NOT EXISTS ?:product_price_history (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            product_id INT NOT NULL,
+            price_type ENUM('base', 'recommended', 'wholesale') NOT NULL,
+            price_before DECIMAL(12, 2),
+            price_after DECIMAL(12, 2),
+            updated_by INT,
+            update_channel ENUM('admin_update', 'csv_import', 'client_custom_import', '1c') NOT NULL,
+            updated_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            INDEX (product_id),
+            INDEX (updated_by)
+            ) Engine=MyISAM DEFAULT CHARSET UTF8
+        </item>
+    </queries>
+</addon>
